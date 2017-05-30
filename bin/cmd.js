@@ -1,65 +1,77 @@
 #!/usr/bin/env node
 
-var fs = require('fs');
-var http = require("http");
-var minimist = require('minimist');
-var exec = require('child_process').exec;
-var cheerio = require("cheerio");
+// Packages
+const meow = require( 'meow' );
+const chalk = require( 'chalk' );
+const table = require( 'text-table' );
+const cheerio = require( 'cheerio' );
 
-var argv = minimist(process.argv.slice(2), {
+// Ours
+const NodeschoolClass = require( '../lib/Nodeschool' );
+const Helpers = require( '../lib/helpers' );
+const NSResponse = new NodeschoolClass( Helpers.URL );
+const Output = require( '../lib/helpers/output' );
+
+// Debugging
+require( 'loud-rejection' )();
+
+// Parse Input
+const cli = meow(
+  {
+    description: false,
+    help: `
+  Usage
+    $ ns-cli
+
+  Commands
+    list -- Lists nodeschool workshops and whether or not they are installed on your system.
+
+  Options
+    --help, -h   Displays help on using this tool.
+`
+  },
+  {
     alias: {
-        l: [ 'ls', 'list'],
-        h: 'help'
+      l: [ 'ls', 'list' ],
+      h: 'help'
     }
-});
+  }
+);
 
-var _url = "http://nodeschool.io/";
+// Program
+// LIST
+if ( cli.input.indexOf( 'list' ) > -1 ) {
+  NSResponse.get().then(({ response, isCachedResponse }) => {
+    const $ = cheerio.load( response );
+    let commands = [];
 
-function _puts(error, stdout, stderr) { 
-    process.stdout.write(stdout);
-}
+    isCachedResponse
+      ? console.log( chalk.dim( 'Loaded data from cache.' ))
+      : console.log( chalk.dim( 'Fetched data from source.' ));
 
-function _isOptionalArg(value) {
-  return value.indexOf('-') !== 0
-}
+    $( '.workshopper[id] code' ).each(( i, e ) => {
+      const moduleName = Helpers.parseModuleName( $( e ).text());
+      const moduleInstalled = Helpers.checkInstalled( moduleName );
 
-function _download(url, callback) {
-  http.get(url, function(res) {
-    var data = "";
-    res.on('data', function (chunk) {
-      data += chunk;
+      let moduleRow = [
+        moduleInstalled ? chalk.bold( moduleName ) : chalk.dim( moduleName ),
+        moduleInstalled ? chalk.green( '✓' ) : chalk.red( '✕' )
+      ];
+
+      if ( moduleInstalled ) {
+        commands.unshift( moduleRow );
+      } else if ( moduleName !== undefined ) {
+        commands.push( moduleRow );
+      }
     });
-    res.on("end", function() {
-      callback(data);
-    });
-  }).on("error", function() {
-    callback(null);
-  });
-}
 
-function _parseModuleName(command) {
-    var arr = command.split(' ').slice(2);
-    return arr.filter(_isOptionalArg)[0];
-}
-
-function _checkInstalled(moduleName) {
-    var existsPath = 'if [ -x "$(command -v ' + moduleName + ')" ]; then echo "' + moduleName + ' INSTALLED" >&1; else echo "' + moduleName + ' NOT INSTALLED" >&1; fi';
-    exec(existsPath, _puts);
-}
-
-if (argv.list) {
-    _download(_url, function (data) {
-        if (data) {
-            var $ = cheerio.load(data);
-            $('.workshopper[id] code').each(function (i, e) {
-                var moduleName = _parseModuleName($(this).text());
-                _checkInstalled(moduleName);
-            });
-        } else {
-            console.error('Could not reach nodeschool website. Please retry soon.')
+    console.log(
+      table(
+        Output.Headings.concat( commands.filter( cmd => cmd[0].indexOf( ':' ) < 0 )),
+        {
+          align: Output.ColumnAlignment
         }
-    });
-} else {
-    return fs.createReadStream(__dirname + '/usage.txt')
-        .pipe(process.stdout);    
+      )
+    );
+  });
 }
