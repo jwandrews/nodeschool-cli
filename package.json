@@ -33,8 +33,8 @@
     "text-table": "^0.2.0"
   },
   "devDependencies": {
-    "eslint": "^3.19.0",
-    "eslint-config-carpages": "^0.2.0",
+    "eslint": "^4.2.0",
+    "eslint-config-carpages": "~1.0.2",
     "loud-rejection": "^1.6.0"
   }
 }
