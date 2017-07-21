@@ -1,21 +1,29 @@
 #!/usr/bin/env node
 
-// Packages
+// -----------------------------------------------------------------------------
+// CLI Program
+// -----------------------------------------------------------------------------
+
+// -----------------------------------------------------------------------------
+// Imports
+
 const meow = require( 'meow' );
 const chalk = require( 'chalk' );
 const table = require( 'text-table' );
 const cheerio = require( 'cheerio' );
 
-// Ours
-const NodeschoolClass = require( '../lib/Nodeschool' );
+const NodeSchool = require( '../lib/Nodeschool' );
 const Helpers = require( '../lib/helpers' );
-const NSResponse = new NodeschoolClass( Helpers.URL );
 const Output = require( '../lib/helpers/output' );
 
+// -----------------------------------------------------------------------------
 // Debugging
+
 require( 'loud-rejection' )();
 
+// -----------------------------------------------------------------------------
 // Parse Input
+
 const cli = meow(
   {
     description: false,
@@ -38,10 +46,15 @@ const cli = meow(
   }
 );
 
-// Program
+// -----------------------------------------------------------------------------
+// Program Commands
+
 // LIST
 if ( cli.input.indexOf( 'list' ) > -1 ) {
-  NSResponse.get().then(({ response, isCachedResponse }) => {
+  async () => {
+    let courses = await NodeSchool.getCourses();
+    let { response, isCachedResponse } = courses;
+
     const $ = cheerio.load( response );
     let commands = [];
 
@@ -73,5 +86,5 @@ if ( cli.input.indexOf( 'list' ) > -1 ) {
         }
       )
     );
-  });
+  };
 }
