@@ -12,9 +12,10 @@ const chalk = require( 'chalk' );
 const table = require( 'text-table' );
 const cheerio = require( 'cheerio' );
 
+const pkg = require( '../package' );
 const NodeSchool = require( '../lib/Nodeschool' );
-const Helpers = require( '../lib/helpers' );
-const Output = require( '../lib/helpers/output' );
+const Utils = require( '../lib/utils' );
+const Output = require( '../lib/utils/output' );
 
 // -----------------------------------------------------------------------------
 // Debugging
@@ -29,7 +30,7 @@ const cli = meow(
     description: false,
     help: `
   Usage
-    $ ns-cli
+    $ ${Object.keys( pkg.bin )[0]}
 
   Commands
     list -- Lists nodeschool workshops and whether or not they are installed on your system.
@@ -51,9 +52,9 @@ const cli = meow(
 
 // LIST
 if ( cli.input.indexOf( 'list' ) > -1 ) {
-  async () => {
-    let courses = await NodeSchool.getCourses();
-    let { response, isCachedResponse } = courses;
+  ( async () => {
+    const courses = await NodeSchool.getCourses();
+    const { response, isCachedResponse } = courses;
 
     const $ = cheerio.load( response );
     let commands = [];
@@ -63,8 +64,8 @@ if ( cli.input.indexOf( 'list' ) > -1 ) {
       : console.log( chalk.dim( 'Fetched data from source.' ));
 
     $( '.workshopper[id] code' ).each(( i, e ) => {
-      const moduleName = Helpers.parseModuleName( $( e ).text());
-      const moduleInstalled = Helpers.checkInstalled( moduleName );
+      const moduleName = Utils.parseModuleName( $( e ).text());
+      const moduleInstalled = Utils.checkInstalled( moduleName );
 
       let moduleRow = [
         moduleInstalled ? chalk.bold( moduleName ) : chalk.dim( moduleName ),
@@ -86,5 +87,5 @@ if ( cli.input.indexOf( 'list' ) > -1 ) {
         }
       )
     );
-  };
+  })();
 }
