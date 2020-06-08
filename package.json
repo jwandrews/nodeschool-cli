@@ -34,6 +34,6 @@
   "devDependencies": {
     "eslint": "^4.2.0",
     "eslint-config-carpages": "~5.0.0",
-    "loud-rejection": "^1.6.0"
+    "loud-rejection": "^2.2.0"
   }
 }
