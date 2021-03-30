@@ -2,13 +2,13 @@
 # yarn lockfile v1
 
 
-"@babel/code-frame@7.12.11", "@babel/code-frame@^7.0.0":
+"@babel/code-frame@7.12.11":
   version "7.12.11"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.12.11.tgz#f4ad435aa263db935b8f10f2c552d23fb716a63f"
   dependencies:
     "@babel/highlight" "^7.10.4"
 
-"@babel/code-frame@^7.12.13":
+"@babel/code-frame@^7.0.0", "@babel/code-frame@^7.12.13":
   version "7.12.13"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.12.13.tgz#dcfc826beef65e75c50e21d3837d7d95798dd658"
   dependencies:
@@ -1455,8 +1455,8 @@ eslint-visitor-keys@^2.0.0:
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-2.0.0.tgz#21fdc8fbcd9c795cc0321f0563702095751511a8"
 
 eslint@^7.2.0, eslint@^7.22.0:
-  version "7.22.0"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-7.22.0.tgz#07ecc61052fec63661a2cab6bd507127c07adc6f"
+  version "7.23.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-7.23.0.tgz#8d029d252f6e8cf45894b4bee08f5493f8e94325"
   dependencies:
     "@babel/code-frame" "7.12.11"
     "@eslint/eslintrc" "^0.4.0"
