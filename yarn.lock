@@ -2150,8 +2150,8 @@ map-obj@^4.1.0:
   resolved "https://registry.yarnpkg.com/map-obj/-/map-obj-4.2.1.tgz#e4ea399dbc979ae735c83c863dd31bdf364277b7"
 
 meow@^10.0.0:
-  version "10.1.0"
-  resolved "https://registry.yarnpkg.com/meow/-/meow-10.1.0.tgz#43edce35b3c5b7056d74bd9d63897220d3c190a6"
+  version "10.1.1"
+  resolved "https://registry.yarnpkg.com/meow/-/meow-10.1.1.tgz#87fa665f18e727024116d456e725f69033ca6d8f"
   dependencies:
     "@types/minimist" "^1.2.2"
     camelcase-keys "^7.0.0"
