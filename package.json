@@ -28,7 +28,7 @@
     "command-exists": "^1.2.2",
     "meow": "^10.0.0",
     "minimist": "^1.2.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^3.0.0",
     "text-table": "^0.2.0"
   },
   "devDependencies": {
