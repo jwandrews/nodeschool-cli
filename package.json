@@ -23,7 +23,7 @@
   "license": "MIT",
   "dependencies": {
     "cache-conf": "^0.6.0",
-    "chalk": "^4.0.0",
+    "chalk": "^5.0.0",
     "cheerio": "^1.0.0-rc.2",
     "command-exists": "^1.2.2",
     "meow": "^10.0.0",
