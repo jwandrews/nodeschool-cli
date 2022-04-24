@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "eslint": "^8.0.0",
-    "eslint-config-carpages": "~7.0.0",
+    "eslint-config-carpages": "~7.1.0",
     "loud-rejection": "^2.2.0"
   }
 }
