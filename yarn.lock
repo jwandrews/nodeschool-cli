@@ -2354,8 +2354,8 @@ node-domexception@^1.0.0:
   resolved "https://registry.yarnpkg.com/node-domexception/-/node-domexception-1.0.0.tgz#6888db46a1f71c0b76b3f7555016b63fe64766e5"
 
 node-fetch@^3.0.0:
-  version "3.2.5"
-  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-3.2.5.tgz#7d31da657804db5185540ddac7ddd516a9a2bd26"
+  version "3.2.7"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-3.2.7.tgz#30739f7becd068ef8a741b8a9509409f0f835cf4"
   dependencies:
     data-uri-to-buffer "^4.0.0"
     fetch-blob "^3.1.4"
