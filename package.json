@@ -32,7 +32,7 @@
     "text-table": "^0.2.0"
   },
   "devDependencies": {
-    "eslint": "^8.0.0",
+    "eslint": "^9.1.0",
     "eslint-config-carpages": "~8.0.0",
     "loud-rejection": "^2.2.0"
   }
